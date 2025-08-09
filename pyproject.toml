@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "guru-quotes"
+version = "0.1.0"
+description = ""
+authors = ["Ivan Khokhlov <ivan.s.khokhlov@rt.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.116.1"
+uvicorn = "^0.35.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
