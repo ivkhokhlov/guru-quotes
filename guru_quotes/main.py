@@ -1,8 +1,9 @@
-from typing import List
+from http import HTTPStatus
+import json
 from fastapi import FastAPI, HTTPException
-
-# Импортируем предварительно загруженные данные и модели
 from guru_quotes.data import gurus_db
+from fastapi_pagination import Page, add_pagination, paginate
+
 from guru_quotes.models import Guru, Quote
 
 app = FastAPI(
@@ -10,32 +11,40 @@ app = FastAPI(
     description="Микросервис для получения мудрых цитат от различных гуру.",
     version="0.2.0",
 )
+add_pagination(app)
 
 
 @app.get(
     "/",
     summary="Корневой эндпоинт",
     description="Простой эндпоинт для проверки работы сервиса.",
+    status_code=HTTPStatus.OK,
 )
 def read_root():
-    return {"message": "Добро пожаловать в Guru Quotes API!"}
+    return {
+        "message": "Добро пожаловать в Guru Quotes API!",
+        "gurus_count": len(gurus_db),
+    }
 
 
-@app.get("/api/gurus", response_model=List[Guru], summary="Получить список всех гуру")
-def get_all_gurus():
+@app.get(
+    "/api/gurus",
+    summary="Получить список всех гуру",
+    status_code=HTTPStatus.OK,
+)
+def get_all_gurus() -> Page[Guru]:
     """
     Возвращает полный список всех гуру и их цитат.
     """
-    # Данные уже являются словарем объектов Guru, поэтому просто возвращаем значения.
-    return list(gurus_db.values())
+    return paginate((list(gurus_db.values())))
 
 
 @app.get(
     "/api/gurus/{guru_id}",
-    response_model=Guru,
     summary="Получить конкретного гуру по ID",
+    status_code=HTTPStatus.OK,
 )
-def get_guru_by_id(guru_id: int):
+def get_guru_by_id(guru_id: int) -> Guru:
     """
     Возвращает одного гуру по его уникальному `id`.
     Если гуру не найден, возвращает ошибку 404.
@@ -48,10 +57,10 @@ def get_guru_by_id(guru_id: int):
 
 @app.get(
     "/api/gurus/{guru_id}/quotes",
-    response_model=List[Quote],
     summary="Получить все цитаты гуру",
+    status_code=HTTPStatus.OK,
 )
-def get_quotes_by_guru(guru_id: int):
+def get_quotes_by_guru(guru_id: int) -> list[Quote]:
     """
     Возвращает список всех цитат для конкретного гуру по его `id`.
     Если гуру не найден, возвращает ошибку 404.
@@ -64,10 +73,10 @@ def get_quotes_by_guru(guru_id: int):
 
 @app.get(
     "/api/gurus/{guru_id}/quotes/{quote_id}",
-    response_model=Quote,
     summary="Получить конкретную цитату гуру",
+    status_code=HTTPStatus.OK,
 )
-def get_specific_quote(guru_id: int, quote_id: int):
+def get_specific_quote(guru_id: int, quote_id: int) -> Quote:
     """
     Возвращает одну конкретную цитату по `id` гуру и `id` цитаты.
     Если гуру или цитата не найдены, возвращает ошибку 404.

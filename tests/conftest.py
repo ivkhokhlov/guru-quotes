@@ -2,6 +2,14 @@ import pytest
 from fastapi.testclient import TestClient
 
 from guru_quotes.main import app
+from httpx import Client
+from dotenv import load_dotenv
+import os
+
+
+@pytest.fixture(scope="session", autouse=True)
+def load_env():
+    load_dotenv()
 
 
 @pytest.fixture(scope="session")
@@ -12,3 +20,9 @@ def client():
     """
     with TestClient(app) as test_client:
         yield test_client
+
+
+@pytest.fixture
+def api_client():
+    base_url = os.getenv("API_URL", "http://localhost:8000")
+    return Client(base_url=base_url)
