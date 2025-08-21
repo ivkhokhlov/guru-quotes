@@ -3,8 +3,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from guru_quotes.data import \
-    GURUS_DATA  # Импортируем исходные данные для сравнения
+# Импортируем тот же источник данных, что и приложение, для надежных сравнений
+from guru_quotes.data import GURUS_DATA, gurus_db
 
 # === Тесты для корневого эндпоинта (/) ===
 
@@ -81,7 +81,8 @@ def test_get_quotes_by_guru_success(client: TestClient) -> None:
     quotes_data = response.json()
     assert isinstance(quotes_data, list)
     # Сравним с исходными данными
-    original_guru = next((g for g in GURUS_DATA if g.id == guru_id), None)
+    original_guru = gurus_db.get(guru_id)
+    assert original_guru is not None
     assert len(quotes_data) == len(original_guru.quotes)
     assert quotes_data[0]["text"] == original_guru.quotes[0].text
 
@@ -131,8 +132,8 @@ def test_get_specific_quote_not_found(client: TestClient) -> None:
     quote_id = 999
     response = client.get(f"/api/gurus/{guru_id}/quotes/{quote_id}")
     assert response.status_code == 404
-    # Имя гуру берется из "базы данных" для сообщения об ошибке
-    guru_name = GURUS_DATA[0].name
+    # Этот тест стал надежнее: имя гуру берется из того же источника данных.
+    guru_name = gurus_db[guru_id].name
     assert response.json() == {
         "detail": f"Цитата с ID {quote_id} у гуру {guru_name} не найдена."
     }

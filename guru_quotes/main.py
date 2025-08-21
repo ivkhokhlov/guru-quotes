@@ -1,20 +1,15 @@
-# guru_quotes/main.py
-
 from typing import List
-
 from fastapi import FastAPI, HTTPException
 
-from .data import GURUS_DATA
-from .models import Guru, Quote
+# Импортируем предварительно загруженные данные и модели
+from guru_quotes.data import gurus_db
+from guru_quotes.models import Guru, Quote
 
 app = FastAPI(
     title="Guru Quotes API",
     description="Микросервис для получения мудрых цитат от различных гуру.",
-    version="1.0.0",
+    version="0.2.0",
 )
-
-# Создадим словари для быстрого доступа по ID, эмулируя работу базы данных
-gurus_db = {guru.id: guru for guru in GURUS_DATA}
 
 
 @app.get(
@@ -31,6 +26,7 @@ def get_all_gurus():
     """
     Возвращает полный список всех гуру и их цитат.
     """
+    # Данные уже являются словарем объектов Guru, поэтому просто возвращаем значения.
     return list(gurus_db.values())
 
 
