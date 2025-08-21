@@ -4,7 +4,6 @@ import math
 
 from http import HTTPStatus
 
-from tests.test_api import TOTAL_GURUS
 from guru_quotes.data import GURUS_DATA
 
 TOTAL_GURUS = len(GURUS_DATA)
