@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Конфуций",
     "email": "confucius@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Конфуций",
     "quotes": [
       {
         "id": 1,
@@ -22,6 +23,7 @@
     "id": 2,
     "name": "Лао-цзы",
     "email": "laozi@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Лао-цзы",
     "quotes": [
       {
         "id": 1,
@@ -37,6 +39,7 @@
     "id": 3,
     "name": "QA-Гуру",
     "email": "qa.guru@example.com",
+    "url": "https://qa.guru/",
     "quotes": [
       {
         "id": 1,
@@ -56,6 +59,7 @@
     "id": 4,
     "name": "Лев Толстой",
     "email": "leo.tolstoy@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Толстой,_Лев_Николаевич",
     "quotes": [
       {
         "id": 1,
@@ -75,6 +79,7 @@
     "id": 5,
     "name": "Федор Достоевский",
     "email": "fyodor.dostoevsky@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Достоевский,_Фёдор_Михайлович",
     "quotes": [
       {
         "id": 1,
@@ -94,6 +99,7 @@
     "id": 6,
     "name": "Альберт Эйнштейн",
     "email": "albert.einstein@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Эйнштейн,_Альберт",
     "quotes": [
       {
         "id": 1,
@@ -113,6 +119,7 @@
     "id": 7,
     "name": "Стив Джобс",
     "email": "steve.jobs@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Джобс,_Стив",
     "quotes": [
       {
         "id": 1,
@@ -132,6 +139,7 @@
     "id": 8,
     "name": "Сократ",
     "email": "socrates@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Сократ",
     "quotes": [
       {
         "id": 1,
@@ -151,6 +159,7 @@
     "id": 9,
     "name": "Аристотель",
     "email": "aristotle@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Аристотель",
     "quotes": [
       {
         "id": 1,
@@ -166,6 +175,7 @@
     "id": 10,
     "name": "Антон Чехов",
     "email": "anton.chekhov@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Чехов,_Антон_Павлович",
     "quotes": [
       {
         "id": 1,
@@ -181,6 +191,7 @@
     "id": 11,
     "name": "Михаил Булгаков",
     "email": "mikhail.bulgakov@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Булгаков,_Михаил_Афанасьевич",
     "quotes": [
       {
         "id": 1,
@@ -196,6 +207,7 @@
     "id": 12,
     "name": "Марк Твен",
     "email": "mark.twain@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Твен,_Марк",
     "quotes": [
       {
         "id": 1,
@@ -211,6 +223,7 @@
     "id": 13,
     "name": "Оскар Уайльд",
     "email": "oscar.wilde@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Уайльд,_Оскар",
     "quotes": [
       {
         "id": 1,
@@ -226,6 +239,7 @@
     "id": 14,
     "name": "Фридрих Ницше",
     "email": "friedrich.nietzsche@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Ницше,_Фридрих",
     "quotes": [
       {
         "id": 1,
@@ -241,6 +255,7 @@
     "id": 15,
     "name": "Уинстон Черчилль",
     "email": "winston.churchill@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Черчилль,_Уинстон",
     "quotes": [
       {
         "id": 1,
@@ -256,6 +271,7 @@
     "id": 16,
     "name": "Махатма Ганди",
     "email": "mahatma.gandhi@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Ганди,_Махатма",
     "quotes": [
       {
         "id": 1,
@@ -271,6 +287,7 @@
     "id": 17,
     "name": "Александр Пушкин",
     "email": "alexander.pushkin@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Пушкин,_Александр_Сергеевич",
     "quotes": [
       {
         "id": 1,
@@ -286,6 +303,7 @@
     "id": 18,
     "name": "Николай Гоголь",
     "email": "nikolai.gogol@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Гоголь,_Николай_Васильевич",
     "quotes": [
       {
         "id": 1,
@@ -301,6 +319,7 @@
     "id": 19,
     "name": "Михаил Ломоносов",
     "email": "mikhail.lomonosov@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Ломоносов,_Михаил_Васильевич",
     "quotes": [
       {
         "id": 1,
@@ -316,6 +335,7 @@
     "id": 20,
     "name": "Иммануил Кант",
     "email": "immanuel.kant@example.com",
+    "url": "https://ru.wikipedia.org/wiki/Кант,_Иммануил",
     "quotes": [
       {
         "id": 1,

@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, HttpUrl
 
 
 class Quote(BaseModel):
@@ -12,4 +12,5 @@ class Guru(BaseModel):
     id: int
     name: str
     email: EmailStr
+    url: HttpUrl
     quotes: List[Quote]

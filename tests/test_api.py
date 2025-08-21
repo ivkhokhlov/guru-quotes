@@ -29,21 +29,24 @@ def test_get_all_gurus(client: TestClient) -> None:
     assert len(response_data) == len(GURUS_DATA)
     # Проверим, что имя первого гуру совпадает для базовой уверенности в данных
     assert response_data[0]["name"] == GURUS_DATA[0].name
+    # Проверим наличие и корректность URL
+    assert "url" in response_data[0]
+    assert response_data[0]["url"] == str(GURUS_DATA[0].url)
 
 
 # === Тесты для эндпоинта /api/gurus/{guru_id} ===
 
 
 @pytest.mark.parametrize(
-    "guru_id, expected_name",
+    "guru_id, expected_name, expected_url",
     [
-        (1, "Конфуций"),
-        (2, "Лао-цзы"),
-        (3, "QA-Гуру"),
+        (1, "Конфуций", "https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%84%D1%83%D1%86%D0%B8%D0%B9"),
+        (2, "Лао-цзы", "https://ru.wikipedia.org/wiki/%D0%9B%D0%B0%D0%BE-%D1%86%D0%B7%D1%8B"),
+        (3, "QA-Гуру", "https://qa.guru/"),
     ],
 )
 def test_get_guru_by_id_success(
-    client: TestClient, guru_id: int, expected_name: str
+    client: TestClient, guru_id: int, expected_name: str, expected_url: str
 ) -> None:
     """Проверяет успешное получение гуру по существующему ID."""
     response = client.get(f"/api/gurus/{guru_id}")
@@ -53,6 +56,9 @@ def test_get_guru_by_id_success(
     assert guru_data["id"] == guru_id
     assert guru_data["name"] == expected_name
     assert "quotes" in guru_data
+    # Проверяем наличие и соответствие URL
+    assert "url" in guru_data
+    assert guru_data["url"] == expected_url
 
 
 def test_get_guru_by_id_not_found(client: TestClient) -> None:
