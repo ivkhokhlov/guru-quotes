@@ -1,5 +1,5 @@
 from typing import Sequence
-from app.models.Guru import Guru
+from app.models.Guru import Guru, GuruUpdate
 from .engine import engine
 from sqlmodel import Session, select
 
@@ -23,12 +23,27 @@ def create_guru(guru: Guru) -> Guru:
         return guru
 
 
-def update_guru(guru: Guru) -> Guru:
+def patch_guru(guru_id: int, guru_update: GuruUpdate) -> Guru | None:
+    """
+    Частично обновляет данные гуру.
+    Обновляются только те поля, которые были переданы.
+    """
     with Session(engine) as session:
-        session.add(guru)
+        db_guru = session.get(Guru, guru_id)
+        if not db_guru:
+            return None
+
+        update_data = guru_update.model_dump(exclude_unset=True)
+
+        for key, value in update_data.items():
+            setattr(db_guru, key, value)
+
+        session.add(db_guru)
         session.commit()
-        session.refresh(guru)
-        return guru
+        session.refresh(db_guru)
+
+        return db_guru
+
 
 
 def delete_guru(guru_id: int) -> Guru | None:

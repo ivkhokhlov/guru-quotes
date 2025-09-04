@@ -5,7 +5,7 @@ from fastapi_pagination import Page, paginate
 from sqlmodel import Sequence
 
 from app.db import gurus
-from app.models.Guru import Guru
+from app.models.Guru import Guru, GuruUpdate
 
 
 router = APIRouter(
@@ -69,3 +69,21 @@ def delete_guru(guru_id: int) -> Response:
         raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")
 
     return Response(status_code=HTTPStatus.NO_CONTENT)
+
+
+@router.patch(
+    "/{guru_id}",
+    summary="Обновить данные гуру по ID",
+    status_code=HTTPStatus.OK,
+)
+def patch_guru(guru_id: int, guru_data: GuruUpdate) -> Guru:
+    """
+    Частично обновляет данные гуру по его уникальному `id`.
+    Можно передать любое количество полей для обновления: `name`, `email`, `url`.
+    Если гуру не найден, возвращает ошибку 404.
+    """
+    updated_guru = gurus.patch_guru(guru_id, guru_data)
+    if not updated_guru:
+        raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")
+
+    return updated_guru
