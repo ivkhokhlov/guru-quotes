@@ -8,6 +8,7 @@ from app.models.Quote import Quote
 
 DATA_FILE_PATH = Path(__file__).parent.parent.parent / "guru_quotes" / "gurus.json"
 
+
 def seed_database():
     with Session(engine) as session:
         # Проверяем, есть ли уже гуру в базе, чтобы не дублировать данные при перезапуске

@@ -15,10 +15,7 @@ def get_session():
         yield session
 
 
-router = APIRouter(
-    prefix="/{guru_id}/quotes",
-    tags=["Quotes"]
-)
+router = APIRouter(prefix="/{guru_id}/quotes", tags=["Quotes"])
 
 
 @router.get("/", summary="Получить все цитаты гуру", response_model=List[QuoteRead])
@@ -34,21 +31,29 @@ def get_quotes_by_guru(guru_id: int, session: Session = Depends(get_session)):
     return guru.quotes
 
 
-@router.get("/{quote_id}", summary="Получить конкретную цитату гуру", response_model=QuoteRead)
-def get_specific_quote(guru_id: int, quote_id: int, session: Session = Depends(get_session)):
+@router.get(
+    "/{quote_id}", summary="Получить конкретную цитату гуру", response_model=QuoteRead
+)
+def get_specific_quote(
+    guru_id: int, quote_id: int, session: Session = Depends(get_session)
+):
     """
     Возвращает одну конкретную цитату по `id` гуру и `id` цитаты.
     Если гуру или цитата не найдены, возвращает ошибку 404.
     """
     # Эффективный запрос, который ищет цитату по ее ID и ID ее гуру
-    statement = select(Quote).where(Quote.guru_id == guru_id).where(Quote.id == quote_id)
+    statement = (
+        select(Quote).where(Quote.guru_id == guru_id).where(Quote.id == quote_id)
+    )
     quote = session.exec(statement).first()
 
     if not quote:
         # Чтобы дать пользователю более точную ошибку, проверим, существует ли гуру
         guru = session.get(Guru, guru_id)
         if not guru:
-            raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")
+            raise HTTPException(
+                status_code=404, detail=f"Гуру с ID {guru_id} не найден."
+            )
         else:
             raise HTTPException(
                 status_code=404,

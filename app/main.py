@@ -1,13 +1,10 @@
 from dotenv import load_dotenv
-# Add this import
-from contextlib import asynccontextmanager
-
-from app.db.engine import create_db_and_tables
-from app.db.seeding import seed_database
 
 load_dotenv()
 
-
+from contextlib import asynccontextmanager
+from app.db.engine import create_db_and_tables
+from app.db.seeding import seed_database
 from http import HTTPStatus
 from fastapi import FastAPI
 from fastapi_pagination import add_pagination
@@ -15,10 +12,9 @@ from fastapi_pagination import add_pagination
 from app.routers import gurus, quotes, status
 
 
-# 1. Define the lifespan context manager
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # This code runs on startup
+    load_dotenv()
     print("INFO:     Application startup...")
     create_db_and_tables()
     seed_database()
@@ -27,12 +23,11 @@ async def lifespan(app: FastAPI):
     print("INFO:     Application shutdown...")
 
 
-# 2. Pass the lifespan manager to the FastAPI instance
 app = FastAPI(
     title="Guru Quotes API",
     description="Микросервис для получения мудрых цитат от различных гуру.",
     version="0.2.0",
-    lifespan=lifespan  # Add this line
+    lifespan=lifespan,
 )
 
 app.include_router(gurus.router)

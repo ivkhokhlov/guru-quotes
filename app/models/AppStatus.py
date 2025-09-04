@@ -2,4 +2,4 @@ from pydantic import BaseModel
 
 
 class AppStatus(BaseModel):
-    status: str
+    is_db_available: bool

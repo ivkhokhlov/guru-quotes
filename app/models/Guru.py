@@ -13,3 +13,9 @@ class Guru(SQLModel, table=True):
     url: str
 
     quotes: List["Quote"] = Relationship(back_populates="guru")
+
+
+class GuruUpdate(SQLModel):
+    name: str | None = None
+    email: EmailStr | None = None
+    url: str | None = None

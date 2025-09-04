@@ -6,7 +6,6 @@ from sqlmodel import Sequence
 
 from app.db import gurus
 from app.models.Guru import Guru
-# from guru_quotes.data import gurus_db
 
 
 router = APIRouter(
@@ -42,3 +41,16 @@ def get_guru_by_id(guru_id: int) -> Guru:
         raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")
 
     return guru
+
+
+@router.post(
+    "/",
+    summary="Получить конкретного гуру по ID",
+    status_code=HTTPStatus.OK,
+)
+def create_guru(guru: Guru) -> Guru:
+    """
+    Возвращает одного гуру по его уникальному `id`.
+    Если гуру не найден, возвращает ошибку 404.
+    """
+    return gurus.create_guru(guru)
