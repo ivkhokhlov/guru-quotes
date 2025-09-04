@@ -41,14 +41,12 @@ def get_specific_quote(
     Возвращает одну конкретную цитату по `id` гуру и `id` цитаты.
     Если гуру или цитата не найдены, возвращает ошибку 404.
     """
-    # Эффективный запрос, который ищет цитату по ее ID и ID ее гуру
     statement = (
         select(Quote).where(Quote.guru_id == guru_id).where(Quote.id == quote_id)
     )
     quote = session.exec(statement).first()
 
     if not quote:
-        # Чтобы дать пользователю более точную ошибку, проверим, существует ли гуру
         guru = session.get(Guru, guru_id)
         if not guru:
             raise HTTPException(

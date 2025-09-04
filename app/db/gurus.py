@@ -31,7 +31,12 @@ def update_guru(guru: Guru) -> Guru:
         return guru
 
 
-def delete_guru(guru: Guru) -> None:
+def delete_guru(guru_id: int) -> Guru | None:
     with Session(engine) as session:
-        session.delete(guru)
+        guru_to_delete = session.get(Guru, guru_id)
+        if not guru_to_delete:
+            return None
+
+        session.delete(guru_to_delete)
         session.commit()
+        return guru_to_delete

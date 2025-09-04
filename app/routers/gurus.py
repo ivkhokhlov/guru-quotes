@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from typing import Iterable
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
 from fastapi_pagination import Page, paginate
 from sqlmodel import Sequence
 
@@ -10,7 +10,7 @@ from app.models.Guru import Guru
 
 router = APIRouter(
     prefix="/api/gurus",
-    tags=["Gurus"]
+    tags=["Gurus"],
 )
 
 
@@ -46,11 +46,26 @@ def get_guru_by_id(guru_id: int) -> Guru:
 @router.post(
     "/",
     summary="Получить конкретного гуру по ID",
-    status_code=HTTPStatus.OK,
+    status_code=HTTPStatus.CREATED,
 )
 def create_guru(guru: Guru) -> Guru:
-    """
-    Возвращает одного гуру по его уникальному `id`.
-    Если гуру не найден, возвращает ошибку 404.
-    """
     return gurus.create_guru(guru)
+
+
+
+@router.delete(
+    "/{guru_id}",
+    summary="Удалить гуру по ID",
+    status_code=HTTPStatus.NO_CONTENT,
+)
+def delete_guru(guru_id: int) -> Response:
+    """
+    Удаляет одного гуру по его уникальному `id`.
+    Если гуру не найден, возвращает ошибку 404.
+    В случае успеха возвращает ответ 204 No Content.
+    """
+    deleted_guru = gurus.delete_guru(guru_id)
+    if not deleted_guru:
+        raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")
+
+    return Response(status_code=HTTPStatus.NO_CONTENT)
