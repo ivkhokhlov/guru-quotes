@@ -52,6 +52,9 @@ def delete_guru(guru_id: int) -> Guru | None:
         if not guru_to_delete:
             return None
 
+        if guru_to_delete.quotes:
+            raise ValueError(f"Нельзя удалить гуру '{guru_to_delete.name}', так как у него есть цитаты.")
+
         session.delete(guru_to_delete)
         session.commit()
         return guru_to_delete

@@ -17,3 +17,11 @@ class Quote(QuoteBase, table=True):
 
 class QuoteRead(QuoteBase):
     id: int
+
+
+class QuoteCreate(SQLModel):
+    text: str
+
+
+class QuoteUpdate(SQLModel):
+    text: str | None = None
