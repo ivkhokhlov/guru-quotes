@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 
 from app.db.engine import create_db_and_tables
+from app.db.seeding import seed_database
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ async def lifespan(app: FastAPI):
     # This code runs on startup
     print("INFO:     Application startup...")
     create_db_and_tables()
+    seed_database()
     print("INFO:     Database tables created (if not exist).")
     yield
     print("INFO:     Application shutdown...")
@@ -34,7 +36,7 @@ app = FastAPI(
 )
 
 app.include_router(gurus.router)
-# app.include_router(quotes.router)
+app.include_router(quotes.router, prefix="/api/gurus")
 app.include_router(status.router)
 
 add_pagination(app)

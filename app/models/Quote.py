@@ -1,4 +1,3 @@
-# Import Optional here
 from typing import TYPE_CHECKING, Optional
 from sqlmodel import SQLModel, Field, Relationship
 
@@ -11,7 +10,6 @@ class QuoteBase(SQLModel):
 
 class Quote(QuoteBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
-
     guru: Optional["Guru"] = Relationship(back_populates="quotes")
 
 class QuoteRead(QuoteBase):
