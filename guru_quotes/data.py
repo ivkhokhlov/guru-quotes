@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from guru_quotes.models import Guru
+from app.models.Guru import Guru
 
 DATA_FILE_PATH = Path(__file__).parent / "gurus.json"
 

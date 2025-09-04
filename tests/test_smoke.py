@@ -2,7 +2,6 @@ from http import HTTPStatus
 
 from fastapi.testclient import TestClient
 
-from tests.test_api import TOTAL_GURUS
 from guru_quotes.data import GURUS_DATA
 
 TOTAL_GURUS = len(GURUS_DATA)
