@@ -8,11 +8,10 @@ def guru_ids_for_cleanup(api_client: Client):
     yield guru_ids
 
     for guru_id in guru_ids:
-        api_client.delete(f'/api/gurus/{guru_id}')
+        api_client.delete(f"/api/gurus/{guru_id}")
 
 
-
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def guru_payload_factory(faker):
     def factory(**args):
         return {
@@ -25,9 +24,9 @@ def guru_payload_factory(faker):
     return factory
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def created_guru(api_client, guru_payload_factory):
-    response = api_client.post('/api/gurus/', json=guru_payload_factory())
+    response = api_client.post("/api/gurus/", json=guru_payload_factory())
     yield response.json()
 
-    api_client.delete(f'/api/gurus/{response.json().get("id")}')
+    api_client.delete(f"/api/gurus/{response.json().get('id')}")

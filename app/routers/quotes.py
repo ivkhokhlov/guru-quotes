@@ -126,10 +126,10 @@ def update_quote(
     return db_quote
 
 
-@router.delete("/{quote_id}", summary="Удалить цитату гуру", status_code=HTTPStatus.NO_CONTENT)
-def delete_quote(
-    guru_id: int, quote_id: int, session: Session = Depends(get_session)
-):
+@router.delete(
+    "/{quote_id}", summary="Удалить цитату гуру", status_code=HTTPStatus.NO_CONTENT
+)
+def delete_quote(guru_id: int, quote_id: int, session: Session = Depends(get_session)):
     """
     Удаляет цитату по `id` гуру и `id` цитаты.
     Если гуру или цитата не найдены, возвращает ошибку 404.

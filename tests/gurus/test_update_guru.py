@@ -33,7 +33,7 @@ def test_patch_guru_all_fields_should_succeed(
 
 
 @pytest.mark.parametrize(
-    'field_to_update',
+    "field_to_update",
     get_model_fields(GuruUpdate),
 )
 def test_patch_guru_single_field_should_succeed(
@@ -45,10 +45,12 @@ def test_patch_guru_single_field_should_succeed(
     """
     Проверяет успешное частичное обновление одного поля гуру.
     """
-    guru_id = created_guru.get('id')
+    guru_id = created_guru.get("id")
     new_value = guru_payload_factory()[field_to_update]
 
-    response = api_client.patch(f"/api/gurus/{guru_id}", json={field_to_update: new_value})
+    response = api_client.patch(
+        f"/api/gurus/{guru_id}", json={field_to_update: new_value}
+    )
     response_json = response.json()
 
     assert response.status_code == HTTPStatus.OK

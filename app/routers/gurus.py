@@ -58,7 +58,6 @@ def create_guru(guru_data: GuruCreate) -> Guru:
     return gurus.create_guru(db_guru)
 
 
-
 @router.delete(
     "/{guru_id}",
     summary="Удалить гуру по ID",

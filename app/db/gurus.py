@@ -45,7 +45,6 @@ def patch_guru(guru_id: int, guru_update: GuruUpdate) -> Guru | None:
         return db_guru
 
 
-
 def delete_guru(guru_id: int) -> Guru | None:
     with Session(engine) as session:
         guru_to_delete = session.get(Guru, guru_id)
@@ -53,7 +52,9 @@ def delete_guru(guru_id: int) -> Guru | None:
             return None
 
         if guru_to_delete.quotes:
-            raise ValueError(f"Нельзя удалить гуру '{guru_to_delete.name}', так как у него есть цитаты.")
+            raise ValueError(
+                f"Нельзя удалить гуру '{guru_to_delete.name}', так как у него есть цитаты."
+            )
 
         session.delete(guru_to_delete)
         session.commit()

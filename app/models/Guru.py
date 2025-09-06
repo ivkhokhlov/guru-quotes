@@ -11,6 +11,7 @@ class GuruBase(SQLModel):
     email: EmailStr
     url: str
 
+
 class Guru(GuruBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     quotes: List["Quote"] = Relationship(back_populates="guru")
