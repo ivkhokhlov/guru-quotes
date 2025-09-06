@@ -1,16 +1,24 @@
 from http import HTTPStatus
-
-from fastapi.testclient import TestClient
-
-from guru_quotes.data import GURUS_DATA
-
-TOTAL_GURUS = len(GURUS_DATA)
+from httpx import Client
 
 
-def test_read_root(client: TestClient) -> None:
+def test_read_root(
+    api_client: Client
+) -> None:
     """Проверяет успешный ответ от корневого эндпоинта."""
-    response = client.get("/")
-    assert response.status_code == HTTPStatus.OK
+    response = api_client.get('/')
     response_json = response.json()
+
+    assert response.status_code == HTTPStatus.OK
     assert response_json["message"] == "Добро пожаловать в Guru Quotes API!"
-    assert response_json["gurus_count"] == TOTAL_GURUS
+
+
+def test_db_is_available(
+    api_client: Client
+) -> None:
+    """Проверяет успешный ответ от корневого эндпоинта."""
+    response = api_client.get("status/")
+    response_json = response.json()
+
+    assert response.status_code == HTTPStatus.OK
+    assert response_json.get("is_db_available") is True

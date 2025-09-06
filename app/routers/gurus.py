@@ -5,7 +5,7 @@ from fastapi_pagination import Page, paginate
 from sqlmodel import Sequence
 
 from app.db import gurus
-from app.models.Guru import Guru, GuruUpdate
+from app.models.Guru import Guru, GuruCreate, GuruUpdate
 
 
 router = APIRouter(
@@ -45,11 +45,17 @@ def get_guru_by_id(guru_id: int) -> Guru:
 
 @router.post(
     "/",
-    summary="Получить конкретного гуру по ID",
+    summary="Создать гуру",
     status_code=HTTPStatus.CREATED,
 )
-def create_guru(guru: Guru) -> Guru:
-    return gurus.create_guru(guru)
+def create_guru(guru_data: GuruCreate) -> Guru:
+    """
+    Создает нового гуру.
+    Требует `name`, `email` и `url` в теле запроса.
+    """
+    db_guru = Guru.model_validate(guru_data)
+
+    return gurus.create_guru(db_guru)
 
 
 
@@ -64,6 +70,10 @@ def delete_guru(guru_id: int) -> Response:
     Если гуру не найден, возвращает ошибку 404.
     В случае успеха возвращает ответ 204 No Content.
     """
+    try:
+        gurus.delete_guru(guru_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     deleted_guru = gurus.delete_guru(guru_id)
     if not deleted_guru:
         raise HTTPException(status_code=404, detail=f"Гуру с ID {guru_id} не найден.")

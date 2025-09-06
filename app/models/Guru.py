@@ -6,13 +6,18 @@ if TYPE_CHECKING:
     from .Quote import Quote
 
 
-class Guru(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class GuruBase(SQLModel):
     name: str
     email: EmailStr
     url: str
 
+class Guru(GuruBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
     quotes: List["Quote"] = Relationship(back_populates="guru")
+
+
+class GuruCreate(GuruBase):
+    pass
 
 
 class GuruUpdate(SQLModel):
